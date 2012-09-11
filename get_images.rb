@@ -1,9 +1,6 @@
-require 'rubygems'
 require 'mechanize'
 
-TimeBegin = Time.now
-#
-
+THEAD_COUNT = 4
 
 $urls = []
  file = File.open("/root/list.txt", "r")
@@ -13,125 +10,18 @@ $urls = []
    end
 file.close
 
-puts $urls
-
-
-# В один поток
-# browser = Mechanize.new
-#   $urls.each do |url|
-#     # puts '----- url ---- ' + url
-#     img = browser.get(url)
-#     # puts '----- img ---- ' + url
-#     img.save("/root/img/#{img.filename}")
-#     # puts img.filename +  ' saved'
-#   end
-
-
-
-
-t1=Thread.new{ 
+def get_save_img
   browser = Mechanize.new
-
   while( $urls.size != 0 ) 
     url =  $urls.shift
     puts '-- url -- ' + url 
     img = browser.get(url)
     img.save("/root/img/#{img.filename}")
   end
-}
+end
 
-
-
-t2=Thread.new{ 
-  browser = Mechanize.new
-
-  while( $urls.size != 0 ) 
-    url =  $urls.shift
-    puts '-- url -- ' + url 
-    img = browser.get(url)
-    img.save("/root/img/#{img.filename}")
-  end
-}
-
-
-
-t3=Thread.new{ 
-  browser = Mechanize.new
-
-  while( $urls.size != 0 ) 
-    url =  $urls.shift
-    puts '-- url -- ' + url 
-    img = browser.get(url)
-    img.save("/root/img/#{img.filename}")
-  end
-}
-
-
-t4=Thread.new{ 
-  browser = Mechanize.new
-
-  while( $urls.size != 0 ) 
-    url =  $urls.shift
-    puts '-- url -- ' + url 
-    img = browser.get(url)
-    img.save("/root/img/#{img.filename}")
-  end
-}
-
-
-
-t5=Thread.new{ 
-  browser = Mechanize.new
-
-  while( $urls.size != 0 ) 
-    url =  $urls.shift
-    puts '-- url -- ' + url 
-    img = browser.get(url)
-    img.save("/root/img/#{img.filename}")
-  end
-}
-
-
-
-t6=Thread.new{ 
-  browser = Mechanize.new
-
-  while( $urls.size != 0 ) 
-    url =  $urls.shift
-    puts '-- url -- ' + url 
-    img = browser.get(url)
-    img.save("/root/img/#{img.filename}")
-  end
-}
-
-
-t7=Thread.new{ 
-  browser = Mechanize.new
-
-  while( $urls.size != 0 ) 
-    url =  $urls.shift
-    puts '-- url -- ' + url 
-    img = browser.get(url)
-    img.save("/root/img/#{img.filename}")
-  end
-}
-
-
-t1.join
-t2.join
-t3.join
-t4.join
-t5.join
-t6.join
-t7.join
-
-
-# Code here
-#
-Time.now - TimeBegin 
-
-
-
-
-
-
+ThreadArray = []
+THEAD_COUNT.times do |t|
+  ThreadArray <<  Thread.new{ get_save_img }
+  ThreadArray.last.join
+end
