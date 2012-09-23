@@ -25,3 +25,4 @@ THEAD_COUNT.times do |t|
   ThreadArray <<  Thread.new{ get_save_img }
   ThreadArray.last.join
 end
+
