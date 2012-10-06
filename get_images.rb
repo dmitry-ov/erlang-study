@@ -2,6 +2,7 @@ require 'mechanize'
 
 THEAD_COUNT = 4
 
+
 $urls = []
  file = File.open("/root/list.txt", "r")
    while (line = file.gets) 
