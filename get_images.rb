@@ -2,6 +2,7 @@ require 'mechanize'
 
 THEAD_COUNT = 4
 
+
 $urls = []
  file = File.open("/root/list.txt", "r")
    while (line = file.gets) 
@@ -25,3 +26,4 @@ THEAD_COUNT.times do |t|
   ThreadArray <<  Thread.new{ get_save_img }
   ThreadArray.last.join
 end
+
