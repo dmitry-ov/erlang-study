@@ -2,4 +2,4 @@
 -export([double/1]).
 
 double(X) ->
-    2 * X.
+  2 * X.
